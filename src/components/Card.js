@@ -1,25 +1,22 @@
 import styled from "styled-components";
 import { useState } from "react";
+import ZapOptions from "./ZapOptions";
 
 export default function Card({ card, i }) {
-    let isOpen = false;
-    let isQuestion = true;
-    const [cardStage, setCardStage] = useState([isOpen, isQuestion]);
+    const [cardStage, setCardStage] = useState(1);
 
     let texto, img;
-    if (!cardStage[0]) {
+    if (cardStage === 1) {
         texto = "pergunta" + (i + 1)
-        if (cardStage[1]) {
-            img = "/assets/seta_play.png"
-        } else {
-            img = `/assets/seta_virar.png`
-        }
-    } else {
-        if (!cardStage[1]) {
-            texto = card.question;
-            img = `/assets/seta_virar.png`;
-        }
+        img = "/assets/seta_play.png"
+
+    } else if (cardStage === 2) {
+        texto = card.question;
+        img = `/assets/seta_virar.png`;
+    } else if (cardStage === 3) {
+        texto = card.answer;
     }
+
 
 
     return (
@@ -27,37 +24,46 @@ export default function Card({ card, i }) {
             <div>
                 {texto}
             </div>
-            <img onClick={() => { setCardStage([true, false]); console.log("uis ") }} src={img} />
+            <img onClick={() => { setCardStage(cardStage + 1) }} src={img} />
+            <ZapOptions cardStage={cardStage} />
         </CardContainer>
     );
 }
 
-let isOpen;
-let isQuestion;
+function isOpen(propsCardStage) {
+    return propsCardStage === 2 || propsCardStage === 3;
+}
 const CardContainer = styled.div`
 
-
     width: 300px;
-    height: ${props => props.cardStage[0] ? 131 : 65}px;
+    min-height: ${props => isOpen(props.cardStage) ? "131px" : "65px"};
+    height: ${props => isOpen(props.cardStage) ? "auto" : "65px"};
     margin-bottom: 25px;
     
     display: flex;
+    flex-direction: ${props => props.cardStage === 3 ? "column" : ""};
+    flex-wrap: ${props => props.cardStage === 3 ? "wrap" : ""};
     justify-content: space-between;
-    padding: 20px ${props => props.cardStage[0] ? 18 : 20}px;
+    padding-top: ${props => isOpen(props.cardStage) ? 18 : 20}px;
+    padding-bottom: ${props => props.cardStage === 2 ? 6 : props.cardStage === 3 ? 10 : 22}px;
+    padding-left: 15px;
+    padding-right: 15px;
 
     border-radius: 5px;
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
 
     background-color: #FFFFFF;
-    font-weight: ${props => props.cardStage[0] ? 400 : 700};
-    line-height: ${props => props.cardStage[0] ? 21.6 : 19.2}px;
+    font-weight: ${props => isOpen(props.cardStage) ? 400 : 700};
+    line-height: ${props => isOpen(props.cardStage) ? 21.6 : 19.2}px;
 
     div {
         display: flex;
-        align-items: ${props => props.cardStage[0] ? "flex-start" : "center"};
+        align-items: ${props => isOpen(props.cardStage) ? "flex-start" : "center"};
     }
 
     img {
-        height: ${props => props.cardStage[0] ? 20 : 23}px;
+        height: ${props => isOpen(props.cardStage) ? 20 : 23}px;
+        margin-top: ${props => isOpen(props.cardStage) ? 85 : 0}px;
+        display: ${props => props.cardStage === 3 ? "none" : ""};
     }
 `
