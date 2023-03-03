@@ -19,8 +19,6 @@ const ContainerMain = styled.main`
     flex-direction: column;
 
     font-family: 'Recursive', sans-serif;
-    font-weight: 700;
     font-size: 18px;
-    line-height: 26.1px;
     color: #333333;
 `
