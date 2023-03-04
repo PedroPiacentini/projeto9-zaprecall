@@ -1,11 +1,11 @@
 import styled from "styled-components";
-export default function ZapOptions({ cardStage }) {
+export default function ZapOptions({ cardStage, setCardStage, setCounter, counter }) {
     if (cardStage === 3) {
         return (
             <ZapContainer>
-                <Red>Não lembrei</Red>
-                <Yellow>Quase não lembre</Yellow>
-                <Green>Zap!</Green>
+                <Red onClick={() => { setCounter(counter + 1); setCardStage(4); }}>Não lembrei</Red>
+                <Yellow onClick={() => { setCounter(counter + 1); setCardStage(8); }}>Quase não lembre</Yellow>
+                <Green onClick={() => { setCounter(counter + 1); setCardStage(12); }}>Zap!</Green>
             </ZapContainer>
         );
     }

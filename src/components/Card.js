@@ -2,19 +2,20 @@ import styled from "styled-components";
 import { useState } from "react";
 import ZapOptions from "./ZapOptions";
 
-export default function Card({ card, i }) {
+export default function Card({ card, i, setCounter, counter }) {
     const [cardStage, setCardStage] = useState(1);
 
     let texto, img;
-    if (cardStage === 1) {
+    if (cardStage === 1 || cardStage % 4 === 0) {
         texto = "pergunta" + (i + 1)
         img = "/assets/seta_play.png"
-
     } else if (cardStage === 2) {
         texto = card.question;
         img = `/assets/seta_virar.png`;
     } else if (cardStage === 3) {
         texto = card.answer;
+
+    } else {
     }
 
 
@@ -25,7 +26,7 @@ export default function Card({ card, i }) {
                 {texto}
             </div>
             <img onClick={() => { setCardStage(cardStage + 1) }} src={img} />
-            <ZapOptions cardStage={cardStage} />
+            <ZapOptions cardStage={cardStage} setCardStage={setCardStage} setCounter={setCounter} counter={counter} />
         </CardContainer>
     );
 }
@@ -55,6 +56,8 @@ const CardContainer = styled.div`
     background-color: #FFFFFF;
     font-weight: ${props => isOpen(props.cardStage) ? 400 : 700};
     line-height: ${props => isOpen(props.cardStage) ? 21.6 : 19.2}px;
+
+    color: ${props => props.cardStage === 4 ? "#FF3030" : props.cardStage === 8 ? "#FF922E" : props.cardStage === 12 ? "#2FBE34" : ""};
 
     div {
         display: flex;
