@@ -7,8 +7,17 @@ export default function Card({ card, i, setCounter, counter }) {
 
     let texto, img;
     if (cardStage === 1 || cardStage % 4 === 0) {
-        texto = "pergunta" + (i + 1)
-        img = "/assets/seta_play.png"
+        texto = "pergunta " + (i + 1)
+        if (cardStage === 4) {
+            img = "/assets/icone_erro.png"
+        } else if (cardStage === 8) {
+            img = "/assets/icone_quase.png"
+        } else if (cardStage === 12) {
+            img = "/assets/icone_certo.png"
+        } else {
+            img = "/assets/seta_play.png"
+        }
+
     } else if (cardStage === 2) {
         texto = card.question;
         img = `/assets/seta_virar.png`;
@@ -25,7 +34,7 @@ export default function Card({ card, i, setCounter, counter }) {
             <div>
                 {texto}
             </div>
-            <img onClick={() => { setCardStage(cardStage + 1) }} src={img} />
+            <img onClick={cardStage < 4 ? () => { setCardStage(cardStage + 1) } : () => { return }} src={img} />
             <ZapOptions cardStage={cardStage} setCardStage={setCardStage} setCounter={setCounter} counter={counter} />
         </CardContainer>
     );
