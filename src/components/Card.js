@@ -36,8 +36,8 @@ export default function Card({ card, i, setCounter, counter }) {
 
     return (
         <CardContainer data-test="flashcard" cardStage={cardStage}>
-            <div data-test="flashcard-text">
-                {texto}
+            <div>
+                <span data-test="flashcard-text">{texto}</span>
             </div>
             <img data-test={dataTest} onClick={cardStage < 4 ? () => { setCardStage(cardStage + 1) } : () => { return }} src={img} />
             <ZapOptions cardStage={cardStage} setCardStage={setCardStage} setCounter={setCounter} counter={counter} />
