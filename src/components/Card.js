@@ -39,7 +39,7 @@ export default function Card({ card, i, setCounter, counter }) {
             <div>
                 <span data-test="flashcard-text">{texto}</span>
             </div>
-            <img data-test={dataTest} onClick={cardStage < 4 ? () => { setCardStage(cardStage + 1) } : () => { return }} src={img} />
+            <img onClick={cardStage < 4 ? () => { setCardStage(cardStage + 1) } : () => { return }} data-test={dataTest} src={img} />
             <ZapOptions cardStage={cardStage} setCardStage={setCardStage} setCounter={setCounter} counter={counter} />
         </CardContainer>
     );
@@ -67,7 +67,7 @@ const CardContainer = styled.div`
     border-radius: 5px;
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
 
-    background-color: #FFFFFF;
+    background-color: ${props => isOpen(props.cardStage) ? "#FFFFD4" : "#FFFFFF"};
     font-weight: ${props => isOpen(props.cardStage) ? 400 : 700};
     line-height: ${props => isOpen(props.cardStage) ? 21.6 : 19.2}px;
 
