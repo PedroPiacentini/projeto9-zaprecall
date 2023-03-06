@@ -5,22 +5,27 @@ import ZapOptions from "./ZapOptions";
 export default function Card({ card, i, setCounter, counter }) {
     const [cardStage, setCardStage] = useState(1);
 
-    let texto, img;
+    let texto, img, dataTest;
     if (cardStage === 1 || cardStage % 4 === 0) {
         texto = "pergunta " + (i + 1)
         if (cardStage === 4) {
-            img = "/assets/icone_erro.png"
+            img = "/assets/icone_erro.png";
+            dataTest = "no-icon";
         } else if (cardStage === 8) {
-            img = "/assets/icone_quase.png"
+            img = "/assets/icone_quase.png";
+            dataTest = "partial-icon";
         } else if (cardStage === 12) {
-            img = "/assets/icone_certo.png"
+            img = "/assets/icone_certo.png";
+            dataTest = "zap-icon";
         } else {
-            img = "/assets/seta_play.png"
+            img = "/assets/seta_play.png";
+            dataTest = "play-btn";
         }
 
     } else if (cardStage === 2) {
         texto = card.question;
         img = `/assets/seta_virar.png`;
+        dataTest = "turn-btn";
     } else if (cardStage === 3) {
         texto = card.answer;
 
@@ -30,11 +35,11 @@ export default function Card({ card, i, setCounter, counter }) {
 
 
     return (
-        <CardContainer cardStage={cardStage}>
-            <div>
+        <CardContainer data-test="flashcard" cardStage={cardStage}>
+            <div data-test="flashcard-text">
                 {texto}
             </div>
-            <img onClick={cardStage < 4 ? () => { setCardStage(cardStage + 1) } : () => { return }} src={img} />
+            <img data-test={dataTest} onClick={cardStage < 4 ? () => { setCardStage(cardStage + 1) } : () => { return }} src={img} />
             <ZapOptions cardStage={cardStage} setCardStage={setCardStage} setCounter={setCounter} counter={counter} />
         </CardContainer>
     );

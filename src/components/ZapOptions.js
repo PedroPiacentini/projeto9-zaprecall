@@ -3,9 +3,9 @@ export default function ZapOptions({ cardStage, setCardStage, setCounter, counte
     if (cardStage === 3) {
         return (
             <ZapContainer>
-                <Red onClick={() => { setCounter(counter + 1); setCardStage(4); }}>Não lembrei</Red>
-                <Yellow onClick={() => { setCounter(counter + 1); setCardStage(8); }}>Quase não lembre</Yellow>
-                <Green onClick={() => { setCounter(counter + 1); setCardStage(12); }}>Zap!</Green>
+                <Red data-test="no-btin" onClick={() => { setCounter(counter + 1); setCardStage(4); }}>Não lembrei</Red>
+                <Yellow data-test="partial-btn" onClick={() => { setCounter(counter + 1); setCardStage(8); }}>Quase não lembre</Yellow>
+                <Green data-test="zap-btn" onClick={() => { setCounter(counter + 1); setCardStage(12); }}>Zap!</Green>
             </ZapContainer>
         );
     }

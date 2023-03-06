@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export default function Footer({ cards, counter }) {
     return (
-        <FooterContainer>
+        <FooterContainer data-test="footer">
             {counter}/{cards.length} CONCLUIDOS
         </FooterContainer>
     );
